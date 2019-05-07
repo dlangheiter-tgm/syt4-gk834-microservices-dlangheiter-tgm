@@ -1,9 +1,6 @@
 package io.pivotal.microservices.users;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,92 +15,66 @@ import javax.persistence.Table;
 @Table(name = "T_USER")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
-	public static Long nextId = 0L;
-
 	@Id
 	protected Long id;
 
-	protected String number;
-
-	@Column(name = "name")
-	protected String owner;
-
-	protected BigDecimal balance;
-
-	/**
-	 * This is a very simple, and non-scalable solution to generating unique
-	 * ids. Not recommended for a real application. Consider using the
-	 * <tt>@GeneratedValue</tt> annotation and a sequence to generate ids.
-	 * 
-	 * @return The next available id.
-	 */
-	protected static Long getNextId() {
-		synchronized (nextId) {
-			return nextId++;
-		}
-	}
+	protected String firstName;
+	protected String lastName;
+	protected String role;
+	protected String password;
 
 	/**
 	 * Default constructor for JPA only.
 	 */
 	protected User() {
-		balance = BigDecimal.ZERO;
 	}
 
-	public User(String number, String owner) {
-		id = getNextId();
-		this.number = number;
-		this.owner = owner;
-		balance = BigDecimal.ZERO;
+
+	public User(String firstName, String lastName, String role, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+		this.password = password;
 	}
 
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	/**
-	 * Set JPA id - for testing and JPA only. Not intended for normal use.
-	 * 
-	 * @param id
-	 *            The new id.
-	 */
-	protected void setId(long id) {
+	private void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	protected void setNumber(String userNumber) {
-		this.number = userNumber;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getOwner() {
-		return owner;
+	public String getLastName() {
+		return lastName;
 	}
 
-	protected void setOwner(String owner) {
-		this.owner = owner;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public BigDecimal getBalance() {
-		return balance.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+	public String getRole() {
+		return role;
 	}
 
-	public void withdraw(BigDecimal amount) {
-		balance.subtract(amount);
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public void deposit(BigDecimal amount) {
-		balance.add(amount);
+	public String getPassword() {
+		return password;
 	}
 
-	@Override
-	public String toString() {
-		return number + " [" + owner + "]: $" + balance;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-
 }

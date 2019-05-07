@@ -23,7 +23,7 @@ public class UsersController {
 	protected UserRepository userRepository;
 
 	/**
-	 * Create an instance plugging in the respository of Accounts.
+	 * Create an instance plugging in the respository of users.
 	 * 
 	 * @param userRepository
 	 *            An account repository implementation.
@@ -36,32 +36,44 @@ public class UsersController {
 				+ userRepository.countUsers() + " users");
 	}
 
+	@RequestMapping("/users")
+	public List<User> allUsers() {
+		List<User> users = userRepository.findAll();
+		logger.info("users-service byFirstName() found: " + users);
+
+		if (users == null || users.size() == 0)
+			throw new AccountNotFoundException("");
+		else {
+			return users;
+		}
+	}
+
 	/**
 	 * Fetch an account with the specified account number.
 	 * 
-	 * @param accountNumber
+	 * @param userNumber
 	 *            A numeric, 9 digit account number.
 	 * @return The account if found.
 	 * @throws AccountNotFoundException
 	 *             If the number is not recognised.
 	 */
-	@RequestMapping("/accounts/{accountNumber}")
-	public User byNumber(@PathVariable("accountNumber") String accountNumber) {
+	@RequestMapping("/users/{userNumber}")
+	public User byNumber(@PathVariable("userNumber") Long userNumber) {
 
-		logger.info("users-service byNumber() invoked: " + accountNumber);
-		User account = userRepository.findByNumber(accountNumber);
-		logger.info("users-service byNumber() found: " + account);
+		logger.info("users-service byNumber() invoked: " + userNumber);
+		User user = userRepository.findById(userNumber);
+		logger.info("users-service byNumber() found: " + user);
 
-		if (account == null)
-			throw new AccountNotFoundException(accountNumber);
+		if (user == null)
+			throw new AccountNotFoundException(userNumber);
 		else {
-			return account;
+			return user;
 		}
 	}
 
 	/**
 	 * Fetch users with the specified name. A partial case-insensitive match
-	 * is supported. So <code>http://.../accounts/owner/a</code> will find any
+	 * is supported. So <code>http://.../users/owner/a</code> will find any
 	 * users with upper or lower case 'a' in their name.
 	 * 
 	 * @param partialName
@@ -69,20 +81,20 @@ public class UsersController {
 	 * @throws AccountNotFoundException
 	 *             If there are no matches at all.
 	 */
-	@RequestMapping("/accounts/owner/{name}")
-	public List<User> byOwner(@PathVariable("name") String partialName) {
-		logger.info("users-service byOwner() invoked: "
+	@RequestMapping("/users/first_name/{name}")
+	public List<User> byFirstName(@PathVariable("name") String partialName) {
+		logger.info("users-service byFirstName() invoked: "
 				+ userRepository.getClass().getName() + " for "
 				+ partialName);
 
-		List<User> accounts = userRepository
-				.findByOwnerContainingIgnoreCase(partialName);
-		logger.info("users-service byOwner() found: " + accounts);
+		List<User> users = userRepository
+				.findByFirstNameContainingIgnoreCase(partialName);
+		logger.info("users-service byFirstName() found: " + users);
 
-		if (accounts == null || accounts.size() == 0)
+		if (users == null || users.size() == 0)
 			throw new AccountNotFoundException(partialName);
 		else {
-			return accounts;
+			return users;
 		}
 	}
 }

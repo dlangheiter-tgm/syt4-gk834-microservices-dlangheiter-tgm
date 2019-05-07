@@ -11,23 +11,20 @@ import org.springframework.data.repository.Repository;
  * @author Paul Chapman
  */
 public interface UserRepository extends Repository<User, Long> {
-	/**
-	 * Find an account with the specified account number.
-	 *
-	 * @param accountNumber
-	 * @return The account if found, null otherwise.
-	 */
-	public User findByNumber(String accountNumber);
+
+	public List<User> findAll();
+
+	public User findById(Long id);
 
 	/**
 	 * Find users whose owner name contains the specified string
 	 * 
-	 * @param partialName
+	 * @param firstName
 	 *            Any alphabetic string.
 	 * @return The list of matching users - always non-null, but may be
 	 *         empty.
 	 */
-	public List<User> findByOwnerContainingIgnoreCase(String partialName);
+	public List<User> findByFirstNameContainingIgnoreCase(String firstName);
 
 	/**
 	 * Fetch the number of users known to the system.
