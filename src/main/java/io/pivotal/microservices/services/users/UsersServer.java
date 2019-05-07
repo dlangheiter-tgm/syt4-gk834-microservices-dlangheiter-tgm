@@ -41,7 +41,7 @@ public class UsersServer {
 	public static void main(String[] args) {
 		// Tell server to look for users-server.properties or
 		// users-server.yml
-		System.setProperty("spring.config.name", "accounts-server");
+		System.setProperty("spring.config.name", "users-server");
 
 		SpringApplication.run(UsersServer.class, args);
 	}
