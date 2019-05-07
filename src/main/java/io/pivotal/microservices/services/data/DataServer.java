@@ -1,5 +1,6 @@
 package io.pivotal.microservices.services.data;
 
+import io.pivotal.microservices.data.DataConfiguration;
 import io.pivotal.microservices.users.UserRepository;
 import io.pivotal.microservices.users.UsersConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,10 @@ import java.util.logging.Logger;
 
 @EnableAutoConfiguration
 @EnableDiscoveryClient
-@Import(UsersConfiguration.class)
+@Import(DataConfiguration.class)
 public class DataServer {
 
-    protected Logger logger = Logger.getLogger(io.pivotal.microservices.services.users.UsersServer.class.getName());
+    protected Logger logger = Logger.getLogger(DataServer.class.getName());
 
     /**
      * Run the application using Spring Boot and an embedded servlet engine.
@@ -28,6 +29,6 @@ public class DataServer {
         // users-server.yml
         System.setProperty("spring.config.name", "data-server");
 
-        SpringApplication.run(io.pivotal.microservices.services.data.DataServer.class, args);
+        SpringApplication.run(DataServer.class, args);
     }
 }

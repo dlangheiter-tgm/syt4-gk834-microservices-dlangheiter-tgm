@@ -2,6 +2,7 @@ package io.pivotal.microservices.services.users;
 
 import java.util.logging.Logger;
 
+import io.pivotal.microservices.data.DataConfiguration;
 import io.pivotal.microservices.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
