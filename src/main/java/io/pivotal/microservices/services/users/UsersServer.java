@@ -1,21 +1,21 @@
-package io.pivotal.microservices.services.accounts;
+package io.pivotal.microservices.services.users;
 
 import java.util.logging.Logger;
 
+import io.pivotal.microservices.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Import;
 
-import io.pivotal.microservices.accounts.AccountRepository;
-import io.pivotal.microservices.accounts.AccountsConfiguration;
+import io.pivotal.microservices.users.UsersConfiguration;
 
 /**
  * Run as a micro-service, registering with the Discovery Server (Eureka).
  * <p>
  * Note that the configuration for this application is imported from
- * {@link AccountsConfiguration}. This is a deliberate separation of concerns.
+ * {@link UsersConfiguration}. This is a deliberate separation of concerns.
  * <p>
  * This class declares no beans and current package contains no components for
  * ComponentScan to find. No point using <tt>@SptingBootApplication</tt>.
@@ -24,13 +24,13 @@ import io.pivotal.microservices.accounts.AccountsConfiguration;
  */
 @EnableAutoConfiguration
 @EnableDiscoveryClient
-@Import(AccountsConfiguration.class)
-public class AccountsServer {
+@Import(UsersConfiguration.class)
+public class UsersServer {
 
 	@Autowired
-	protected AccountRepository accountRepository;
+	protected UserRepository userRepository;
 
-	protected Logger logger = Logger.getLogger(AccountsServer.class.getName());
+	protected Logger logger = Logger.getLogger(UsersServer.class.getName());
 
 	/**
 	 * Run the application using Spring Boot and an embedded servlet engine.
@@ -39,10 +39,10 @@ public class AccountsServer {
 	 *            Program arguments - ignored.
 	 */
 	public static void main(String[] args) {
-		// Tell server to look for accounts-server.properties or
-		// accounts-server.yml
+		// Tell server to look for users-server.properties or
+		// users-server.yml
 		System.setProperty("spring.config.name", "accounts-server");
 
-		SpringApplication.run(AccountsServer.class, args);
+		SpringApplication.run(UsersServer.class, args);
 	}
 }

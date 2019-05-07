@@ -5,11 +5,11 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
- * Account DTO - used to interact with the {@link WebAccountsService}.
+ * User DTO - used to interact with the {@link WebAccountsService}.
  * 
  * @author Paul Chapman
  */
-@JsonRootName("Account")
+@JsonRootName("User")
 public class Account {
 
 	protected Long id;

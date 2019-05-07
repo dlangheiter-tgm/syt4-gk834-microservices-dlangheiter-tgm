@@ -1,4 +1,4 @@
-package io.pivotal.microservices.accounts;
+package io.pivotal.microservices.users;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,8 +15,8 @@ import javax.persistence.Table;
  * @author Paul Chapman
  */
 @Entity
-@Table(name = "T_ACCOUNT")
-public class Account implements Serializable {
+@Table(name = "T_USER")
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,11 +48,11 @@ public class Account implements Serializable {
 	/**
 	 * Default constructor for JPA only.
 	 */
-	protected Account() {
+	protected User() {
 		balance = BigDecimal.ZERO;
 	}
 
-	public Account(String number, String owner) {
+	public User(String number, String owner) {
 		id = getNextId();
 		this.number = number;
 		this.owner = owner;
@@ -77,8 +77,8 @@ public class Account implements Serializable {
 		return number;
 	}
 
-	protected void setNumber(String accountNumber) {
-		this.number = accountNumber;
+	protected void setNumber(String userNumber) {
+		this.number = userNumber;
 	}
 
 	public String getOwner() {

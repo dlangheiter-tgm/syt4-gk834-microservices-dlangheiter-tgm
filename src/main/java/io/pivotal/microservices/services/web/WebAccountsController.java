@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Client controller, fetches Account info from the microservice via
+ * Client controller, fetches User info from the microservice via
  * {@link WebAccountsService}.
  * 
  * @author Paul Chapman
@@ -66,7 +66,7 @@ public class WebAccountsController {
 		model.addAttribute("search", name);
 		if (accounts != null)
 			model.addAttribute("accounts", accounts);
-		return "accounts";
+		return "users";
 	}
 
 	@RequestMapping(value = "/accounts/search", method = RequestMethod.GET)

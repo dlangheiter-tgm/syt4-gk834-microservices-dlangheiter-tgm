@@ -1,4 +1,4 @@
-package io.pivotal.microservices.accounts;
+package io.pivotal.microservices.users;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,24 +16,24 @@ import io.pivotal.microservices.exceptions.AccountNotFoundException;
  * @author Paul Chapman
  */
 @RestController
-public class AccountsController {
+public class UsersController {
 
-	protected Logger logger = Logger.getLogger(AccountsController.class
+	protected Logger logger = Logger.getLogger(UsersController.class
 			.getName());
-	protected AccountRepository accountRepository;
+	protected UserRepository userRepository;
 
 	/**
 	 * Create an instance plugging in the respository of Accounts.
 	 * 
-	 * @param accountRepository
+	 * @param userRepository
 	 *            An account repository implementation.
 	 */
 	@Autowired
-	public AccountsController(AccountRepository accountRepository) {
-		this.accountRepository = accountRepository;
+	public UsersController(UserRepository userRepository) {
+		this.userRepository = userRepository;
 
-		logger.info("AccountRepository says system has "
-				+ accountRepository.countAccounts() + " accounts");
+		logger.info("UserRepository says system has "
+				+ userRepository.countUsers() + " users");
 	}
 
 	/**
@@ -46,11 +46,11 @@ public class AccountsController {
 	 *             If the number is not recognised.
 	 */
 	@RequestMapping("/accounts/{accountNumber}")
-	public Account byNumber(@PathVariable("accountNumber") String accountNumber) {
+	public User byNumber(@PathVariable("accountNumber") String accountNumber) {
 
-		logger.info("accounts-service byNumber() invoked: " + accountNumber);
-		Account account = accountRepository.findByNumber(accountNumber);
-		logger.info("accounts-service byNumber() found: " + account);
+		logger.info("users-service byNumber() invoked: " + accountNumber);
+		User account = userRepository.findByNumber(accountNumber);
+		logger.info("users-service byNumber() found: " + account);
 
 		if (account == null)
 			throw new AccountNotFoundException(accountNumber);
@@ -60,24 +60,24 @@ public class AccountsController {
 	}
 
 	/**
-	 * Fetch accounts with the specified name. A partial case-insensitive match
+	 * Fetch users with the specified name. A partial case-insensitive match
 	 * is supported. So <code>http://.../accounts/owner/a</code> will find any
-	 * accounts with upper or lower case 'a' in their name.
+	 * users with upper or lower case 'a' in their name.
 	 * 
 	 * @param partialName
-	 * @return A non-null, non-empty set of accounts.
+	 * @return A non-null, non-empty set of users.
 	 * @throws AccountNotFoundException
 	 *             If there are no matches at all.
 	 */
 	@RequestMapping("/accounts/owner/{name}")
-	public List<Account> byOwner(@PathVariable("name") String partialName) {
-		logger.info("accounts-service byOwner() invoked: "
-				+ accountRepository.getClass().getName() + " for "
+	public List<User> byOwner(@PathVariable("name") String partialName) {
+		logger.info("users-service byOwner() invoked: "
+				+ userRepository.getClass().getName() + " for "
 				+ partialName);
 
-		List<Account> accounts = accountRepository
+		List<User> accounts = userRepository
 				.findByOwnerContainingIgnoreCase(partialName);
-		logger.info("accounts-service byOwner() found: " + accounts);
+		logger.info("users-service byOwner() found: " + accounts);
 
 		if (accounts == null || accounts.size() == 0)
 			throw new AccountNotFoundException(partialName);
