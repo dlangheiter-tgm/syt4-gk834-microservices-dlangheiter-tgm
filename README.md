@@ -5,7 +5,11 @@ Die detaillierte [Aufgabenstellung](TASK.md) beschreibt die notwendigen Schritte
 
 ## Implementierung
 
+Als erstes habe ich den fertigen Code vom Tutorial ["Microservices with Spring"](https://spring.io/blog/2015/07/14/microservices-with-spring) heruntergeladen. Danach habe ich den Account-Service auf User-Service umbenannt. Weiters habe ich die Eigenschaften des Users bearbeitet sodass er jetzt diese Eigenschaften hat: id, firstName, lastName, role und password. Dann musste ich den `UserController` so anpassen das er nicht mehr auf eine 9 stellige Nummer zugreift sondern eine ID verwendet.
 
+Ich habe einen neuen Endpunkt `/users/authenticate` hinzugefügt welche Benutzer über Basic HTTP Authentication authentifiziert. Dies tun sie mit ihrer ID und ihrem Password. Dieser Endpunkt gibt eine Wahr oder Falsch Antwort. Er ist dazu gedacht das andere Services ihn verwenden um zu überprüfen ob der Benutzer authentifiziert ist.
+
+Die Klasse `io.pivotal.microservices.services.Main` ist die Hauptklasse. Diese wird ausgeführt wenn man einen Service starten will. Dies lädt dann eine bestimmte `.yml` Datei welche diesen Service konfiguriert. Beim `users` Service ist das die `users-server.yml`. 
 
 ## Fragen
 
