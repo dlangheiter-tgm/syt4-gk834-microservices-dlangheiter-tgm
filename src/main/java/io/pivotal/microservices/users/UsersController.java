@@ -38,7 +38,7 @@ public class UsersController {
                 + userRepository.countUsers() + " users");
     }
 
-    @RequestMapping("/users/authenticate")
+    @RequestMapping(value = "/users/authenticate", produces = "application/json")
     public AuthResponse authenticateUser(HttpServletRequest httpServletRequest) {
         String authHeader = httpServletRequest.getHeader("Authorization");
         if(authHeader == null || authHeader.isEmpty()) {
@@ -68,7 +68,7 @@ public class UsersController {
         return new AuthResponse(false);
     }
 
-    @RequestMapping("/users")
+    @RequestMapping(value= "/users", produces = "application/json")
     public List<User> allUsers() {
         List<User> users = userRepository.findAll();
         logger.info("users-service byFirstName() found: " + users);
@@ -87,7 +87,7 @@ public class UsersController {
      * @return The account if found.
      * @throws AccountNotFoundException If the number is not recognised.
      */
-    @RequestMapping("/users/{userNumber}")
+    @RequestMapping(value = "/users/{userNumber}", produces = "application/json")
     public User byNumber(@PathVariable("userNumber") Long userNumber) {
 
         logger.info("users-service byNumber() invoked: " + userNumber);
@@ -110,7 +110,7 @@ public class UsersController {
      * @return A non-null, non-empty set of users.
      * @throws AccountNotFoundException If there are no matches at all.
      */
-    @RequestMapping("/users/first_name/{name}")
+    @RequestMapping(value = "/users/first_name/{name}", produces = "application/json")
     public List<User> byFirstName(@PathVariable("name") String partialName) {
         logger.info("users-service byFirstName() invoked: "
                 + userRepository.getClass().getName() + " for "
