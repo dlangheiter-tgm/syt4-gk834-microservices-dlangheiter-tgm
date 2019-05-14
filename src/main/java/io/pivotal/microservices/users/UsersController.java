@@ -40,8 +40,8 @@ public class UsersController {
     public AuthResponse authenticateUser(HttpServletRequest httpServletRequest) {
         String authHeader = httpServletRequest.getHeader("Authorization");
         if(authHeader == null || authHeader.isEmpty()) {
-            logger.info("Request without Authorization header");
-            return new AuthResponse(true);
+            logger.info(" without Authorizzation header");
+            return new AuthResponse(false);
         }
         String auth = new String(DatatypeConverter.parseBase64Binary(authHeader.split(" ")[1]));
 
