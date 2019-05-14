@@ -1,5 +1,7 @@
 # Spring properties
 spring:
+  jpa:
+    show_sql: false
   application:
      name: users-service  # Service registers under this name
   freemarker:
@@ -38,6 +40,5 @@ eureka:
 # Enable actuator access without security checks - DEVELOPEMENT ONLY
 # management.security.enabled: false   Spring Boot 1.5 property
 management.endpoints.web.exposure.include: '*'
-
 
 

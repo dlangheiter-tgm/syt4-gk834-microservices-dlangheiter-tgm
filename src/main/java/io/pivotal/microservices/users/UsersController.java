@@ -1,7 +1,5 @@
 package io.pivotal.microservices.users;
 
-import java.io.Serializable;
-import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Logger;
 
